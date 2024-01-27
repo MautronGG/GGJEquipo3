@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {
-  bool m_elevatorON = false;
+  public bool m_elevatorON = false;
   bool m_elevatorUP = false;
   float m_elevatorProgress = 0f;
   float m_elevatorSpeed;
@@ -16,6 +16,7 @@ public class Elevator : MonoBehaviour
   [SerializeField] Vector3 m_finalPosition;
   [SerializeField] float m_elevatorDistance;
   [SerializeField] float time = 0f;
+  [SerializeField] float proxiimityOutset = 1;
   // Start is called before the first frame update
   void Start()
   {
@@ -33,9 +34,15 @@ public class Elevator : MonoBehaviour
       m_elevatorDirection = m_elevatorEnd - transform.position;
       m_elevatorDistance = m_elevatorDirection.magnitude;
       m_elevatorProgress = Mathf.Max(m_elevatorDistance, 0);
-      if (!Mathf.Approximately(m_elevatorProgress, 0))
+      if (!(m_elevatorDistance < proxiimityOutset))
       {
-        transform.position += m_elevatorDirection.normalized * Time.deltaTime * m_elevatorSpeed;
+        var advance = m_elevatorDirection.normalized * Time.deltaTime * m_elevatorSpeed;
+        if (advance.magnitude > m_elevatorDistance)
+        {
+          advance.Normalize();
+          advance *= m_elevatorDistance;
+        }
+        transform.position += advance;
       }
       else
       {
@@ -81,20 +88,20 @@ public class Elevator : MonoBehaviour
   {
     if (collision.transform.tag == "Player")
     {
-      StartElevator(collision.gameObject, this.gameObject);
+      StartElevator(collision.gameObject, this.gameObject.transform, true);
     }
   }
   private void OnCollisionExit(Collision collision)
   {
     if (collision.transform.tag == "Player")
     {
-      StartElevator(collision.gameObject, null);
+      StartElevator(collision.gameObject, null, false);
     }
   }
-  public void StartElevator(GameObject player, GameObject parent)
+  public void StartElevator(GameObject player, Transform parent, bool state)
   {
     time = 0f;
-    player.transform.SetParent(parent.transform);
+    player.transform.SetParent(parent);
     if (m_elevatorUP)
     {
       m_elevatorStart = m_finalPosition;
@@ -108,6 +115,6 @@ public class Elevator : MonoBehaviour
     m_elevatorDirection = m_elevatorEnd - m_elevatorStart;
     m_elevatorDistance = m_elevatorDirection.magnitude;
     m_elevatorSpeed = m_elevatorDistance / m_elevatorTime;
-    m_elevatorON = true;
+    m_elevatorON = state;
   }
 }
