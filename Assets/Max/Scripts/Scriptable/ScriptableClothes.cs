@@ -6,8 +6,9 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "ScriptableClothes")]
 public class ScriptableClothes : ScriptableObject
 {
-    [SerializeField] Image _sprite;
-    [SerializeField] int _cringe;
-    [SerializeField] int _funny;
-    [SerializeField] int _stupidity;
+    public string name;
+    public Image sprite;
+    public int cringe;
+    public int funny;
+    public int stupidity;
 }

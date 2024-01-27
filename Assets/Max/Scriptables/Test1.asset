@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a71abfb1c6ec2458e6aa9e73d5089c, type: 3}
   m_Name: Test1
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 0}
-  _cringe: 0
-  _funny: 0
-  _stupidity: 0
+  name: 1
+  sprite: {fileID: 0}
+  cringe: 100
+  funny: 100
+  stupidity: 100

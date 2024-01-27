@@ -45,9 +45,12 @@ public class PlayerInputExploration : MonoBehaviour
         transform.position += _position.x * _velocity * Time.deltaTime * transform.right;
     }
 
+    /// <summary>
+    /// Cuendo se presiona "E", se llama la funcion para intentar interactuar con un objeto
+    /// </summary>
+    /// <param name="callbackContext"></param>
     private void OnInteraction(InputAction.CallbackContext callbackContext)
     {
-
         // Si no golpea nada, termina la funcion
         if (!Physics.Raycast(_transform.position + (Vector3.up * 0.3f) + (_transform.forward * 0.2f),
             _transform.forward, out var hit, 1.5f)) 
@@ -55,6 +58,7 @@ public class PlayerInputExploration : MonoBehaviour
             return;
         }
         
+        // Si el objeto golpeado no contiente "InteractableObject", se termina la funcion
         if (!hit.transform.TryGetComponent(out InteractableObject interactable)){
             return;
         }
