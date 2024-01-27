@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "ScriptableClothes")]
 public class ScriptableClothes : ScriptableObject
 {
-    public string name;
+    public string clothesName;
     public Image sprite;
     public int cringe;
     public int funny;

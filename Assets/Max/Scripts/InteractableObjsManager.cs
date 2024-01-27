@@ -11,13 +11,18 @@ public class InteractableObjsManager : MonoBehaviour
     // Lista de todos los objetos interactivos disponibles
     [SerializeField] GameObject[] _interactableObjs;
 
-    private void AssigneClothes()
+    private void Start()
     {
-        GameObject clothesObj;
+        SetClothesToObj();
+    }
+
+    private void SetClothesToObj()
+    {
+        GameObject clothes;
         for (int i = 0; i < _interactableObjs.Length; i++)
         {
-            clothesObj = _clothesManager.GetRandomClothes();
-            _interactableObjs[i].GetComponent<InteractableObject>().GetClothes(clothesObj);
+            clothes = _clothesManager.GetRandomClothes();
+            _interactableObjs[i].GetComponent<InteractableObject>().GetClothes(clothes);
         }
     }
 }

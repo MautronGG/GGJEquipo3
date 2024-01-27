@@ -11,7 +11,6 @@ public class Clothes : MonoBehaviour
     [SerializeField] TextMeshProUGUI _cringeTxt;
     [SerializeField] TextMeshProUGUI _funnyTxt;
     [SerializeField] TextMeshProUGUI _stupidityTxt;
-    public bool isTaken = false;
 
     public void AssigneInfo(ScriptableClothes clothes)
     {
@@ -20,5 +19,10 @@ public class Clothes : MonoBehaviour
         _cringeTxt.text = "Cringe + " + clothes.cringe.ToString();
         _funnyTxt.text = "Funny + " + clothes.funny.ToString();
         _stupidityTxt.text = "Stupidity + " + clothes.stupidity.ToString();
+    }
+
+    public void Test()
+    {
+        Debug.Log(_nameTxt.text);
     }
 }

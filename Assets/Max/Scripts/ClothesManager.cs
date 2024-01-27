@@ -13,10 +13,10 @@ public class ClothesManager : MonoBehaviour
     private void Awake()
     {
         _clothesPrefabs = new GameObject[_clothesDataContainer.GetListLenght()];
-        SendInformation();
+        SetInformation();
     }
 
-    private void SendInformation()
+    private void SetInformation()
     {
         ScriptableClothes data = null;
         for (int i = 0; i < _clothesPrefabs.Length; i++)
@@ -30,11 +30,6 @@ public class ClothesManager : MonoBehaviour
     public GameObject GetRandomClothes()
     {
         int index = Random.Range(0, _clothesPrefabs.Length);
-        if (_clothesPrefabs[index].GetComponent<Clothes>().isTaken)
-        {
-            GetRandomClothes();
-        }
-        _clothesPrefabs[index].GetComponent<Clothes>().isTaken = true;
         return _clothesPrefabs[index];
     }
 }

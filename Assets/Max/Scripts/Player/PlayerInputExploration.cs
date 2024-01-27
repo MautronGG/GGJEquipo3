@@ -63,6 +63,5 @@ public class PlayerInputExploration : MonoBehaviour
             return;
         }
         interactable.Interact();
-        Debug.Log("Interaction");
     }
 }
