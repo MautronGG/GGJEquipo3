@@ -7,13 +7,15 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
-    [SerializeField] private GameObject _playerCombatMenu;
-    [SerializeField] private GameObject _enemyCombatMenu;
     [SerializeField] private GameObject _result;
     [SerializeField] private GameObject _playerAttack;
     [SerializeField] private GameObject _enemyAttack;
     [SerializeField] private GameObject _playerhp;
     [SerializeField] private GameObject _enemyhp;
+    [SerializeField] private GameObject _deck;
+    [SerializeField] private GameObject _mainCard;
+    [SerializeField] private GameObject _card;
+    [SerializeField] private GameObject _passTurn;
 
     private void Awake()
     {
@@ -28,38 +30,29 @@ public class MenuManager : MonoBehaviour
 
     private void MenuManagement(BattleState State)
     {
-        if (State == BattleState.start)
+        if (State == BattleState.Start)
         {
 
         }
-        if (State == BattleState.playerTurn)
+        if (State == BattleState.Player1Turn)
         {
-
+            _passTurn.gameObject.SetActive(false);
         }
-        if (State == BattleState.enemyTurn)
+        if (State == BattleState.Player2Turn)
         {
-            _playerCombatMenu?.SetActive(false);
+            _passTurn.gameObject.SetActive(false);
         }
         if (State == BattleState.Resolve)
         {
-            _playerCombatMenu.SetActive(true);
+
             _playerAttack.SetActive(true);
             _enemyAttack.SetActive(true);
         }
-        if (State == BattleState.Win)
+        if (State == BattleState.End)
         {
-            _result.GetComponent<TextMeshProUGUI>().text = "Winner";
-            _result.SetActive(true);
-            _playerCombatMenu.SetActive(false);
-            _enemyCombatMenu.SetActive(false);
+
         }
-        if (State == BattleState.Lose)
-        {
-            _result.GetComponent<TextMeshProUGUI>().text = "Loser";
-            _result.SetActive(true);
-            _playerCombatMenu.SetActive(false);
-            _enemyCombatMenu.SetActive(false);
-        }
+
     }
 
     public void UpdateAttack(int playerAttack, int enemyAttack)
@@ -74,11 +67,57 @@ public class MenuManager : MonoBehaviour
         _enemyhp.GetComponent<TextMeshProUGUI>().text = enemyHP + " / " + enemyMaxHP;
 
     }
-
-
-    public void HideButtons()
+    public void CreateDeck(List<GameObject> Deck, List<GameObject> MainCard)
     {
-        _playerCombatMenu.gameObject.SetActive(true);
+        for (int i = 0; i < Deck.Count; i++)
+        {
+            GameObject a = Instantiate(_card, _deck.transform);
+            a.GetComponent<BattleButton>().SetData(Deck[i].GetComponent<CardData>());
+            a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;  
+        }
+
+        for (int i = 0; i < MainCard.Count; i++)
+        {
+            GameObject a = Instantiate(_card, _mainCard.transform);
+            a.GetComponent<BattleButton>().SetData(MainCard[i].GetComponent<CardData>());
+            a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;
+        }
+
+
+    }
+    private void Clean()
+    {
+        foreach (Transform child in _deck.transform) 
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in _mainCard.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+    }
+    public void PassTurn()
+    {
+        Clean();
+        _passTurn.gameObject.SetActive(true);
+    }
+    
+    public void End(bool winner)
+    {
+        _result.gameObject.SetActive(true);
+
+        if (winner)
+        {
+            _result.GetComponentInChildren<TextMeshProUGUI>().text = "P1 Wins";
+        }
+
+        else
+        {
+            _result.GetComponentInChildren<TextMeshProUGUI>().text = "P2 Wins";
+        }
+
     }
 
 }

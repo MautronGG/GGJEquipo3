@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class BattleButton : MonoBehaviour
 {
-    [SerializeField] private int _battleValue;
-    [SerializeField] private bool _player;
+    private CardData cardData;
 
+
+    public void SetData(CardData card)
+    {
+        cardData = card;
+    }
+
+    public CardData getData()
+    {
+        return cardData;
+    }
 
     public void Activate()
     {
-        BattleManager.instance.SetPlayerAttack(_battleValue);
+
+        BattleManager.instance.SetPlayerAttack(cardData);
+       
     }
     
 }

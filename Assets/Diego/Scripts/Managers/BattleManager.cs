@@ -12,14 +12,17 @@ public class BattleManager : MonoBehaviour
     public BattleState State;
     public static event Action<BattleState> OnBattleStateChanged;
 
-    [SerializeField] GameObject _player;
-    private PlayerData _playerData;
-    [SerializeField] GameObject _enemy;
-    private PlayerData _enemyData;
-    private int _playerAttack;
-    private int _enemyAttack;
-    private int _playerMaxHP;
-    private int _enemyMaxHP;
+    [SerializeField] GameObject _player1;
+    private PlayerData _player1Data;
+    [SerializeField] GameObject _player2;
+    private PlayerData _player2Data;
+    private CardData _player1Attack;
+    private CardData _player2Attack;
+    private int _player1MaxHP;
+    private int _player2MaxHP;
+    private bool _p1Win;
+
+
 
 
     private void Awake()
@@ -29,8 +32,8 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        _playerMaxHP = _player.GetComponent<PlayerData>().GetMaxHP();
-        _enemyMaxHP = _player.GetComponent<PlayerData>().GetMaxHP();
+        _player1MaxHP = _player1.GetComponent<PlayerData>().GetMaxHP();
+        _player2MaxHP = _player2.GetComponent<PlayerData>().GetMaxHP();
         UpdateBattleState(StartingState);
     }
     
@@ -40,70 +43,103 @@ public class BattleManager : MonoBehaviour
 
         switch (State)
         {
-            case BattleState.start:
-                MenuManager.instance.UpdateHP(_player.GetComponent<PlayerData>().GetHP(), _playerMaxHP,_enemy.GetComponent<PlayerData>().GetHP(), _enemyMaxHP);
-                UpdateBattleState(BattleState.playerTurn);
+            case BattleState.Start:
+                MenuManager.instance.UpdateHP(_player1.GetComponent<PlayerData>().GetHP(), _player1MaxHP, _player2.GetComponent<PlayerData>().GetHP(), _player2MaxHP);
+                _player1.GetComponent<PlayerData>().CreateDeck();
+                _player2.GetComponent<PlayerData>().CreateDeck();
+                _player1.GetComponent<PlayerData>().CreateMainCard();
+                _player2.GetComponent<PlayerData>().CreateMainCard();
+                UpdateBattleState(BattleState.Player1Turn);
                 break;
-            case BattleState.playerTurn:
-                MenuManager.instance.HideButtons();
+            case BattleState.Player1Turn:
+                PlayerTurn(_player1);
                 break;
-            case BattleState.enemyTurn:
-                _enemyAttack = UnityEngine.Random.Range(1, 4);
-                MenuManager.instance.UpdateAttack(_playerAttack,_enemyAttack);
-                UpdateBattleState(BattleState.Resolve);
+            case BattleState.Player2Turn:
+                PlayerTurn(_player2);
                 break;
             case BattleState.Resolve:
                 Resolve();
                 break;
-            case BattleState.Win:
-                break;
-            case BattleState.Lose:
+            case BattleState.End:
+                MenuManager.instance.End(_p1Win);
                 break;
 
         }
         OnBattleStateChanged?.Invoke(newState);
     }
-
-    public void SetPlayerAttack(int attack)
+    
+    public void SetPlayerAttack(CardData cardData)
     {
-        _playerAttack = attack;
-        instance.UpdateBattleState(BattleState.enemyTurn);
+        if (State == BattleState.Player1Turn)
+        {
+            _player1Attack = cardData;
+            MenuManager.instance.PassTurn();
+        }
+
+        else if (State == BattleState.Player2Turn)
+        {
+            _player2Attack = cardData;
+            instance.UpdateBattleState(BattleState.Resolve);
+        }
+
     }
 
+
+    private void PlayerTurn(GameObject player)
+    {
+        MenuManager.instance.CreateDeck(player.GetComponent<PlayerData>().GetDeck(), player.GetComponent<PlayerData>().GetMainCard());
+    }
+
+    public void ChangeTurn()
+    {
+        if (State == BattleState.Resolve)
+        {
+            instance.UpdateBattleState(BattleState.Player1Turn);
+        }
+        else
+        {
+            {
+                instance.UpdateBattleState(BattleState.Player2Turn);
+            }
+        }
+    }
+    
     private void Resolve()
     {
-        _playerData = _player.GetComponent<PlayerData>();
-        _enemyData = _enemy.GetComponent<PlayerData>();
-        if (_playerAttack == 1 &&  _enemyAttack == 2 || _playerAttack == 2 && _enemyAttack == 3 || _playerAttack == 3 && _enemyAttack == 1) 
+        _player1Data = _player1.GetComponent<PlayerData>();
+        _player2Data = _player2.GetComponent<PlayerData>();
+        if (_player1Attack._type == 1 &&  _player2Attack._type == 2 || _player1Attack._type == 2 && _player2Attack._type == 3 || _player1Attack._type == 3 && _player2Attack._type == 1) 
         { 
-            _enemyData.LoseRound();
+            _player2Data.LoseRound(_player1Attack._value);
         }
 
-        else if (_playerAttack ==  _enemyAttack)
+        else if (_player1Attack._type == _player2Attack._type)
         {
 
         }
 
         else
         {
-            _playerData.LoseRound();
+            _player1Data.LoseRound(_player2Attack._value);
         }
 
-        MenuManager.instance.UpdateHP(_player.GetComponent<PlayerData>().GetHP(), _playerMaxHP, _enemy.GetComponent<PlayerData>().GetHP(), _enemyMaxHP);
+        MenuManager.instance.UpdateHP(_player1.GetComponent<PlayerData>().GetHP(), _player1MaxHP, _player2.GetComponent<PlayerData>().GetHP(), _player2MaxHP);
 
-        if (_playerData.GetHP() == 0)
+        if (_player1Data.GetHP() == 0)
         {
-            UpdateBattleState(BattleState.Lose);
+            UpdateBattleState(BattleState.End);
+            _p1Win = false;
         }
-        
-        if (_enemyData.GetHP() == 0)
+
+        if(_player2Data.GetHP() == 0)
         {
-            UpdateBattleState(BattleState.Win);
+            UpdateBattleState(BattleState.End);
+            _p1Win = true;
         }
 
         else
         {
-            UpdateBattleState(BattleState.playerTurn);
+            MenuManager.instance.PassTurn();
         }
 
     }
@@ -112,10 +148,9 @@ public class BattleManager : MonoBehaviour
 }
 public enum BattleState
 {
-    start,
-    playerTurn,
-    enemyTurn,
+    Start,
+    Player1Turn,
+    Player2Turn,
     Resolve,
-    Win,
-    Lose,
+    End
 }
