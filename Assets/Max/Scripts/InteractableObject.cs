@@ -13,11 +13,14 @@ public class InteractableObject : MonoBehaviour, IInteractable
     /// </summary>
     public void Interact()
     {
-        //Debug.Log(_clothesObj);
         _clothes = _clothesObj.GetComponent<Clothes>();
         _clothes.Test();
     }
 
+    /// <summary>
+    /// Recibe la carta de la ropa
+    /// </summary>
+    /// <param name="clothes"></param>
     public void GetClothes(GameObject clothes)
     {
         _clothesObj = clothes;
