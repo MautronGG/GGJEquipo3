@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _mainCard;
     [SerializeField] private GameObject _card;
     [SerializeField] private GameObject _passTurn;
+    [SerializeField] private GameObject _turn;
 
     private void Awake()
     {
@@ -36,21 +37,22 @@ public class MenuManager : MonoBehaviour
         }
         if (State == BattleState.Player1Turn)
         {
+            _turn.GetComponent<TextMeshProUGUI>().text = "Player 1 turn";
             _passTurn.gameObject.SetActive(false);
         }
-        if (State == BattleState.Player2Turn)
+        if (State == BattleState.Player2Turn)           
         {
+            _turn.GetComponent<TextMeshProUGUI>().text = "Player 2 turn";
             _passTurn.gameObject.SetActive(false);
         }
         if (State == BattleState.Resolve)
         {
-
             _playerAttack.SetActive(true);
             _enemyAttack.SetActive(true);
         }
         if (State == BattleState.End)
         {
-
+            _turn.gameObject.SetActive(false);  
         }
 
     }
