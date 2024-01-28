@@ -11,6 +11,7 @@ public class PlayerInputExploration : MonoBehaviour
     Transform _transform;
     Vector2 _position;
     Vector3 _look;
+    [SerializeField] Camera _camera;
     [SerializeField] int _velocity;
 
     private void Awake()
@@ -38,7 +39,7 @@ public class PlayerInputExploration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _look = Camera.main.transform.forward;
+        _look = _camera.transform.forward;
         _look.y = 0;
         transform.forward = _look.normalized;
         _position = _movementAction.ReadValue<Vector2>();
