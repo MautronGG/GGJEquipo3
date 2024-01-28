@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Max/2DArt/Memes.meta
 guid: 7cfe967925049c3409cc6a9aa6616aab
+========
+guid: 2c9c9323228249b4a9903b1075e76391
+>>>>>>>> Mau:Assets/Aramis.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
