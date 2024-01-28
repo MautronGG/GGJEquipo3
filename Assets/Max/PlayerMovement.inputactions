@@ -172,7 +172,7 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller",
+                    "groups": "",
                     "action": "Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -183,7 +183,7 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "",
                     "action": "Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
