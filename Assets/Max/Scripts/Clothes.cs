@@ -24,5 +24,6 @@ public class Clothes : MonoBehaviour
     public void Test()
     {
         Debug.Log(_nameTxt.text);
+
     }
 }
