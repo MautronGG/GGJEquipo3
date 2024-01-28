@@ -4,7 +4,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MenuManager : MonoBehaviour
 {
@@ -44,6 +43,7 @@ public class MenuManager : MonoBehaviour
         }
         if (State == BattleState.Player1Turn)
         {
+            _roundWinner.SetActive(false);
             _player1Deck.SetActive(true);
             _player1MainCard.SetActive(true);
             _player2Deck.SetActive(false);
@@ -152,6 +152,7 @@ public class MenuManager : MonoBehaviour
 
     public void SetWinner(GameObject winner = null)
     {
+        _roundWinner.SetActive(true);
         if ( winner == null)
         {
             _roundWinner.GetComponent<TextMeshProUGUI>().text = "Empate";
