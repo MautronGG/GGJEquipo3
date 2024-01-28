@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -282,8 +282,10 @@ MonoBehaviour:
   _playerhp: {fileID: 1086790452}
   _enemyhp: {fileID: 1123127386}
   _deck: {fileID: 1721216173}
+  _mainCard: {fileID: 0}
   _card: {fileID: 2121536746858102429, guid: 2025dcc8df2737041b7ad393653e4178, type: 3}
   _passTurn: {fileID: 761149234}
+  _turn: {fileID: 0}
 --- !u!1 &316983872
 GameObject:
   m_ObjectHideFlags: 0
