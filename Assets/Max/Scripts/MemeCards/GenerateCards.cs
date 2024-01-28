@@ -5,29 +5,12 @@ using UnityEngine;
 
 public class GenerateCards : MonoBehaviour
 {
-  [SerializeField] SpritesContainer _spritesContainer;
-  [SerializeField] GameObject _memeCardPrefab;
-  GameObject memeCard;
-  float timer;
-  bool startTimer = false;
+    [SerializeField] SpritesContainer _spritesContainer;
+    [SerializeField] GameObject _memeCardPrefab;
 
-  public GameObject SendMemeCard(Transform transform)
-  {
-    memeCard = Instantiate(_memeCardPrefab, transform);
-    startTimer = true;
-    return memeCard;
-  }
-  private void Update()
-  {
-    if (startTimer)
+    public GameObject SendMemeCard(Transform transform)
     {
-      timer += Time.deltaTime;
-      if (timer >= 2.5f)
-      {
-        memeCard.SetActive(false);
-        startTimer = false;
-        timer = 0f;
-      }
+        GameObject memeCard = Instantiate(_memeCardPrefab, transform);
+        return memeCard;
     }
-  }
 }

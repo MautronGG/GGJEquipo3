@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputExploration : MonoBehaviour
 {
     [SerializeField] PlayerInventory _inventory;
+    [SerializeField] Transform _canvas;
     PlayerInput _playerInput;
     InputAction _movementAction;
     Transform _transform;
@@ -13,7 +14,7 @@ public class PlayerInputExploration : MonoBehaviour
     Vector3 _look;
     [SerializeField] Camera _camera;
     [SerializeField] int _velocity;
-  [SerializeField] Transform _canvas;
+  //[SerializeField] Transform _canvas;
 
     private void Awake()
     {
