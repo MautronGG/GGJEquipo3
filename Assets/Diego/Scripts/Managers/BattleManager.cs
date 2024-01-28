@@ -54,13 +54,10 @@ public class BattleManager : MonoBehaviour
                 CreateDeck(_player2);
                 break;
             case BattleState.Player1Turn:
-                
                 break;
             case BattleState.Player2Turn:
-                
                 break;
             case BattleState.Resolve:
-                Resolve();
                 break;
             case BattleState.End:
                 MenuManager.instance.End(_p1Win);
@@ -106,22 +103,25 @@ public class BattleManager : MonoBehaviour
         }
     }
     
-    private void Resolve()
+    public void Resolve()
     {
         _player1Data = _player1.GetComponent<PlayerData>();
         _player2Data = _player2.GetComponent<PlayerData>();
+        MenuManager.instance.Duel(_player1Attack, _player2Attack);
         if (_player1Attack._type == 1 &&  _player2Attack._type == 2 || _player1Attack._type == 2 && _player2Attack._type == 3 || _player1Attack._type == 3 && _player2Attack._type == 1) 
-        { 
+        {
+            MenuManager.instance.SetWinner(_player1);
             _player2Data.LoseRound(_player1Attack._value);
         }
 
         else if (_player1Attack._type == _player2Attack._type)
         {
-
+            MenuManager.instance.SetWinner();
         }
 
         else
         {
+            MenuManager.instance.SetWinner(_player2);
             _player1Data.LoseRound(_player2Attack._value);
         }
 
@@ -141,11 +141,16 @@ public class BattleManager : MonoBehaviour
 
         else
         {
-            MenuManager.instance.PassTurn();
+            StartCoroutine(PassTurn());
         }
 
     }
 
+    IEnumerator PassTurn()
+    {
+        yield return new WaitForSeconds(2.5f);
+        MenuManager.instance.PassTurn();
+    }
 
 }
 public enum BattleState

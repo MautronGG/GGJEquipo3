@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Diego/Scenes/BattleLab2.unity
+    guid: 60bd7fb4b08ec7d49a395c121b7b32c5
   m_configObjects: {}
