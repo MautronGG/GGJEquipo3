@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,6 @@ public class GenerateCards : MonoBehaviour
     public GameObject SendMemeCard()
     {
         GameObject memeCard = Instantiate(_memeCardPrefab);
-        memeCard.GetComponent<MemeCard>().SpriteAndName(_spritesContainer.SendRandomMeme());
         return memeCard;
     }
 }

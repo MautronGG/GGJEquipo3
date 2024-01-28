@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputExploration : MonoBehaviour
 {
+    [SerializeField] PlayerInventory _inventory;
     PlayerInput _playerInput;
     InputAction _movementAction;
     Transform _transform;
     Vector2 _position;
     Vector3 _look;
-  [SerializeField] Camera _camera;
     [SerializeField] int _velocity;
 
     private void Awake()
@@ -38,7 +38,7 @@ public class PlayerInputExploration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _look = _camera.transform.forward;
+        _look = Camera.main.transform.forward;
         _look.y = 0;
         transform.forward = _look.normalized;
         _position = _movementAction.ReadValue<Vector2>();
@@ -63,6 +63,6 @@ public class PlayerInputExploration : MonoBehaviour
         if (!hit.transform.TryGetComponent(out InteractableObject interactable)){
             return;
         }
-        interactable.Interact();
+        _inventory.AddToArray(_inventory.m_memeCardsArray, interactable.Interact());
     }
 }

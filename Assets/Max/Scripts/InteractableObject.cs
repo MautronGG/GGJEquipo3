@@ -6,16 +6,22 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour, IInteractable
 {
     [SerializeField] GenerateCards _generateCards;
-    [SerializeField] PlayerInventory _inventory;
     private GameObject _memeCard;
+    private bool _hasInteracte = false;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public void Interact()
+    public GameObject Interact()
     {
-        _memeCard = _generateCards.SendMemeCard();
-        _inventory.AddToArray(_inventory.m_memeCardsArray, _memeCard);
+        Debug.Log(_hasInteracte);
+        if (!_hasInteracte)
+        {
+            _hasInteracte = true;
+            _memeCard = FindObjectOfType<GenerateCards>().SendMemeCard();
+            return _memeCard;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /// <summary>
