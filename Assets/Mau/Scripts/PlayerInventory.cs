@@ -10,7 +10,7 @@ public class PlayerInventory : MonoBehaviour
 
   public bool AddToArray(List<GameObject> list, GameObject item)
   {
-    if(list.Count < 5)
+    if(list.Count < 5 && item != null)
     {
       Debug.Log("Entró para Add");
       list.Add(item);
