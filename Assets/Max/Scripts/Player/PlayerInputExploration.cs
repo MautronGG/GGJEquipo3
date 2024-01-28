@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputExploration : MonoBehaviour
 {
     [SerializeField] PlayerInventory _inventory;
+    [SerializeField] Transform _canvas;
     PlayerInput _playerInput;
     InputAction _movementAction;
     Transform _transform;

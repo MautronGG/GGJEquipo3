@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour, IInteractable
 {
-    [SerializeField] GenerateCards _generateCards;
     private GameObject _memeCard;
     private bool _hasInteracte = false;
 
     public GameObject Interact(Transform transform)
     {
-        Debug.Log(_hasInteracte);
         if (!_hasInteracte)
         {
             _hasInteracte = true;
