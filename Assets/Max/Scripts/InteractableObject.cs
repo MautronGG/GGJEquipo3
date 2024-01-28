@@ -1,22 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableObject : MonoBehaviour, IInteractable
 {
-    // Dbe recibir una tarjeta, no la informacion. Cambiar luego.
-    private GameObject _clothesObj;
-    private Clothes _clothes;
-  public PlayerInventory _inventory;
+    [SerializeField] GenerateCards _generateCards;
+    [SerializeField] PlayerInventory _inventory;
+    private GameObject _memeCard;
 
     /// <summary>
-    /// Codigo a ejecutar cuando el jugador interactua con el objeto
+    /// 
     /// </summary>
     public void Interact()
     {
-        _clothes = _clothesObj.GetComponent<Clothes>();
-        _clothes.Test();
-    _inventory.AddToArray(_inventory.m_accesoriesArray, _clothesObj);
+        _memeCard = _generateCards.SendMemeCard();
+        _inventory.AddToArray(_inventory.m_memeCardsArray, _memeCard);
     }
 
     /// <summary>
@@ -25,6 +24,6 @@ public class InteractableObject : MonoBehaviour, IInteractable
     /// <param name="clothes"></param>
     public void GetClothes(GameObject clothes)
     {
-        _clothesObj = clothes;
+        
     }
 }

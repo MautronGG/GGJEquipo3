@@ -5,46 +5,29 @@ using TMPro;
 
 public class CardStats : MonoBehaviour
 {
-  public string cardName;
-  public string statName;
-  //public Image sprite;
-  public int cringe;
-  public int funny;
-  public int stupidity;
-
-  public TextMeshPro _statNumber;
-  public TextMeshPro _statName;
-  public TextMeshPro _cardName;
-  private void Awake()
-  {
-    var stat = (int)Mathf.Round(Random.Range(0, 3));
-    if (stat == 0)
+    [SerializeField] MemeCard _memeCard;
+    private string _spt = "stpStat";
+    private string _fny = "_fnyStat";
+    private string _crng = "crngStat";
+    
+    public void GenerateInformation()
     {
-      SetStat(cringe);
-      return;
+        int type = (int)Mathf.Round(Random.Range(0, 3));
+        int stat = (int)Mathf.Round(Random.Range(1, 5));
+        if (type == 0)
+        {
+            _memeCard.SendStats(_crng, stat);
+            return;
+        }
+        if (type == 1)
+        {
+            _memeCard.SendStats(_fny, stat);
+            return;
+        }
+        if (type == 2)
+        {
+            _memeCard.SendStats(_spt, stat);
+            return;
+        }
     }
-    if (stat == 1)
-    {
-      SetStat(funny);
-      return;
-    }
-    if (stat == 2)
-    {
-      SetStat(stupidity);
-      return;
-    }
-    //cringe = (int)Mathf.Round(Random.Range(0, 2));
-    //funny = (int)Mathf.Round(Random.Range(0, 2));
-    //stupidity = (int)Mathf.Round(Random.Range(0, 2));
-  }
-  public void SetStat(int stat)
-  {
-    stat = (int)Mathf.Round(Random.Range(1, 5));
-  }
-  public void ChangeUIText(int stat, string name, string cardName)
-  {
-    _statNumber.text = stat.ToString();
-    _statName.text = name;
-    _cardName.text = cardName;
-  }
 }
