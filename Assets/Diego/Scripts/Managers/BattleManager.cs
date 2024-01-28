@@ -50,12 +50,14 @@ public class BattleManager : MonoBehaviour
                 _player1.GetComponent<PlayerData>().CreateMainCard();
                 _player2.GetComponent<PlayerData>().CreateMainCard();
                 UpdateBattleState(BattleState.Player1Turn);
+                CreateDeck(_player1);
+                CreateDeck(_player2);
                 break;
             case BattleState.Player1Turn:
-                PlayerTurn(_player1);
+                
                 break;
             case BattleState.Player2Turn:
-                PlayerTurn(_player2);
+                
                 break;
             case BattleState.Resolve:
                 Resolve();
@@ -85,9 +87,9 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    private void PlayerTurn(GameObject player)
+    private void CreateDeck(GameObject player)
     {
-        MenuManager.instance.CreateDeck(player.GetComponent<PlayerData>().GetDeck(), player.GetComponent<PlayerData>().GetMainCard());
+        MenuManager.instance.CreateDeck(player.GetComponent<PlayerData>().GetDeck(), player.GetComponent<PlayerData>().GetMainCard(),player);
     }
 
     public void ChangeTurn()

@@ -12,8 +12,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _enemyAttack;
     [SerializeField] private GameObject _playerhp;
     [SerializeField] private GameObject _enemyhp;
-    [SerializeField] private GameObject _deck;
-    [SerializeField] private GameObject _mainCard;
+    [SerializeField] private GameObject _player1Deck;
+    [SerializeField] private GameObject _player1MainCard;
+    [SerializeField] private GameObject _player2Deck;
+    [SerializeField] private GameObject _player2MainCard;
     [SerializeField] private GameObject _card;
     [SerializeField] private GameObject _passTurn;
     [SerializeField] private GameObject _turn;
@@ -37,11 +39,19 @@ public class MenuManager : MonoBehaviour
         }
         if (State == BattleState.Player1Turn)
         {
+            _player1Deck.SetActive(true);
+            _player1MainCard.SetActive(true);
+            _player2Deck.SetActive(false);
+            _player2Deck.SetActive(false);
             _turn.GetComponent<TextMeshProUGUI>().text = "Player 1 turn";
             _passTurn.gameObject.SetActive(false);
         }
         if (State == BattleState.Player2Turn)           
         {
+            _player1Deck.SetActive(false);
+            _player1MainCard.SetActive(false);
+            _player2Deck.SetActive(true);
+            _player2Deck.SetActive(true);
             _turn.GetComponent<TextMeshProUGUI>().text = "Player 2 turn";
             _passTurn.gameObject.SetActive(false);
         }
@@ -69,40 +79,46 @@ public class MenuManager : MonoBehaviour
         _enemyhp.GetComponent<TextMeshProUGUI>().text = enemyHP + " / " + enemyMaxHP;
 
     }
-    public void CreateDeck(List<GameObject> Deck, List<GameObject> MainCard)
+    public void CreateDeck(List<GameObject> Deck, List<GameObject> MainCard,GameObject player)
     {
-        for (int i = 0; i < Deck.Count; i++)
+        if ( player.gameObject.name == "Player1")
         {
-            GameObject a = Instantiate(_card, _deck.transform);
-            a.GetComponent<BattleButton>().SetData(Deck[i].GetComponent<CardData>());
-            a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;  
+            for (int i = 0; i < Deck.Count; i++)
+            {
+                GameObject a = Instantiate(_card, _player1Deck.transform);
+                a.GetComponent<BattleButton>().SetData(Deck[i].GetComponent<CardData>());
+                a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;
+            }
+
+            for (int i = 0; i < MainCard.Count; i++)
+            {
+                GameObject a = Instantiate(_card, _player1MainCard.transform);
+                a.GetComponent<BattleButton>().SetData(MainCard[i].GetComponent<CardData>());
+                a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;
+            }
+        }
+        
+        else if (player.gameObject.name == "Player2")
+        {
+            for (int i = 0; i < Deck.Count; i++)
+            {
+                GameObject a = Instantiate(_card, _player2Deck.transform);
+                a.GetComponent<BattleButton>().SetData(Deck[i].GetComponent<CardData>());
+                a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;
+            }
+
+            for (int i = 0; i < MainCard.Count; i++)
+            {
+                GameObject a = Instantiate(_card, _player2MainCard.transform);
+                a.GetComponent<BattleButton>().SetData(MainCard[i].GetComponent<CardData>());
+                a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;
+            }
         }
 
-        for (int i = 0; i < MainCard.Count; i++)
-        {
-            GameObject a = Instantiate(_card, _mainCard.transform);
-            a.GetComponent<BattleButton>().SetData(MainCard[i].GetComponent<CardData>());
-            a.GetComponentInChildren<TextMeshProUGUI>().text = a.GetComponent<BattleButton>().getData()._value + "/" + a.GetComponent<BattleButton>().getData()._type;
-        }
-
-
-    }
-    private void Clean()
-    {
-        foreach (Transform child in _deck.transform) 
-        {
-            Destroy(child.gameObject);
-        }
-
-        foreach (Transform child in _mainCard.transform)
-        {
-            Destroy(child.gameObject);
-        }
 
     }
     public void PassTurn()
     {
-        Clean();
         _passTurn.gameObject.SetActive(true);
     }
     
