@@ -11,21 +11,21 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("StartGame");
-        SceneManager.LoadScene("Assets/Dani/Scenes/City_SearchScene.unity");
+        SceneManager.LoadScene(2);
     }
 
 
     public void BackToMenu()
     {
         Debug.Log("BackToMenu");
-        SceneManager.LoadScene("Assets/Aramis/Scenes/Menu.unity");
+        SceneManager.LoadScene(0);
     }
 
 
     public void Credits()
     {   
         Debug.Log("CreditsGame");
-        SceneManager.LoadScene("Assets/Aramis/Scenes/Creditos.unity");
+        SceneManager.LoadScene(1);
     }
 
     public void ExitGame()

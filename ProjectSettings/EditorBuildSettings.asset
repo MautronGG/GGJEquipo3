@@ -5,7 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Diego/Scenes/BattleLab2.unity
     guid: 60bd7fb4b08ec7d49a395c121b7b32c5
+  - enabled: 1
+    path: Assets/Main/Scenes/Menu.unity
+    guid: e6bfbf3df961e304e90b6212da8f2e8e
+  - enabled: 1
+    path: Assets/Main/Scenes/Creditos.unity
+    guid: b57ce414f10326543bf568093ab68802
+  - enabled: 1
+    path: Assets/Main/Scenes/City_SearchScene.unity
+    guid: 71ed968a6e05a584ea0c484a629ab410
+  - enabled: 1
+    path: Assets/Main/Scenes/BattleLab2.unity
+    guid: 5d086e2609141304083c84051216c395
   m_configObjects: {}

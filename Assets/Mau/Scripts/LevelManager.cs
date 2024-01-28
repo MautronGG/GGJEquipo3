@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
   float time = 0f;
@@ -69,10 +70,7 @@ public class LevelManager : MonoBehaviour
       time += Time.deltaTime;
       if(time >= outro)
       {
-        //Activar canvas de combate
-        combat = false;
-        onCombat = true;
-        time = 0f;
+        SceneManager.LoadScene(3);
       }
     }
   }
