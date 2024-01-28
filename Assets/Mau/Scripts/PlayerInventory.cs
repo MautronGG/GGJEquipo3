@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
   {
     if(list.Count < 5)
     {
+      Debug.Log("Entró para Add");
       list.Add(item);
       return true;
     }

@@ -13,7 +13,7 @@ public class InteractableObjsManager : MonoBehaviour
 
     private void Start()
     {
-        SetClothesToObj();
+        //SetClothesToObj();
     }
 
     private void SetClothesToObj()

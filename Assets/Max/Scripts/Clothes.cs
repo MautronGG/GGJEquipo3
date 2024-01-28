@@ -14,7 +14,7 @@ public class Clothes : MonoBehaviour
 
     public void AssigneInfo(ScriptableClothes clothes)
     {
-        _nameTxt.text = clothes.name;
+        _nameTxt.text = clothes.clothesName;
         _image = clothes.sprite;
         _cringeTxt.text = "Cringe + " + clothes.cringe.ToString();
         _funnyTxt.text = "Funny + " + clothes.funny.ToString();
