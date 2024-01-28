@@ -8,6 +8,9 @@ public class LevelManager : MonoBehaviour
   bool gameOn = false;
   bool combat = false;
   bool onCombat = false;
+  [SerializeField] int exploreTime;
+  [SerializeField] int cardIntro;
+  [SerializeField] int outro;
   // Start is called before the first frame update
   void Start()
   {
@@ -24,7 +27,7 @@ public class LevelManager : MonoBehaviour
     else if(gameOn)
     {
       time += Time.deltaTime;
-      if (time >= 180)
+      if (time >= exploreTime)
       {
         gameOn = false;
         combat = true;
@@ -36,16 +39,17 @@ public class LevelManager : MonoBehaviour
     else if(!gameOn && !combat)
     {
       time += Time.deltaTime;
-      if (time >= 20)
+      if (time >= cardIntro)
       {
         gameOn = true;
         time = 0f;
+        //Main card dissapear from UI
       }
     }
     else if(combat)
     {
       time += Time.deltaTime;
-      if(time >= 20)
+      if(time >= outro)
       {
         //Activar canvas de combate
         combat = false;
