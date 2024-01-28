@@ -13,6 +13,7 @@ public class PlayerInputExploration : MonoBehaviour
     Vector3 _look;
     [SerializeField] Camera _camera;
     [SerializeField] int _velocity;
+  [SerializeField] Transform _canvas;
 
     private void Awake()
     {
@@ -64,6 +65,6 @@ public class PlayerInputExploration : MonoBehaviour
         if (!hit.transform.TryGetComponent(out InteractableObject interactable)){
             return;
         }
-        _inventory.AddToArray(_inventory.m_memeCardsArray, interactable.Interact());
+        _inventory.AddToArray(_inventory.m_memeCardsArray, interactable.Interact(_canvas));
     }
 }

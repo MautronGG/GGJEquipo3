@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
+using TMPro;
 public class LevelManager : MonoBehaviour
 {
   float time = 0f;
@@ -11,10 +12,18 @@ public class LevelManager : MonoBehaviour
   [SerializeField] int exploreTime;
   [SerializeField] int cardIntro;
   [SerializeField] int outro;
+  PlayerInput[] inputs;
+  [SerializeField] TextMeshProUGUI timer;
   // Start is called before the first frame update
   void Start()
   {
+    inputs = FindObjectsOfType<PlayerInput>();
+    foreach (PlayerInput inputi in inputs)
+    {
+      inputi.currentActionMap.Disable();
+    }
     Cursor.lockState = CursorLockMode.Locked;
+    //ActionMaps Disable
   }
 
   // Update is called once per frame
@@ -26,13 +35,18 @@ public class LevelManager : MonoBehaviour
     }
     else if(gameOn)
     {
-      time += Time.deltaTime;
-      if (time >= exploreTime)
+      time -= Time.deltaTime;
+      timer.text = time.ToString();
+      if (time <= 0)
       {
         gameOn = false;
         combat = true;
         time = 0f;
-        //Desactivar ActionMap
+        //ActionMaps Disable
+        foreach (PlayerInput inputi in inputs)
+        {
+          inputi.currentActionMap.Disable();
+        }
         Cursor.lockState = CursorLockMode.None;
       }
     }
@@ -42,8 +56,12 @@ public class LevelManager : MonoBehaviour
       if (time >= cardIntro)
       {
         gameOn = true;
-        time = 0f;
+        time = exploreTime;
         //Main card dissapear from UI
+        foreach (PlayerInput inputi in inputs)
+        {
+          inputi.currentActionMap.Enable();
+        }
       }
     }
     else if(combat)

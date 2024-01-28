@@ -9,13 +9,13 @@ public class InteractableObject : MonoBehaviour, IInteractable
     private GameObject _memeCard;
     private bool _hasInteracte = false;
 
-    public GameObject Interact()
+    public GameObject Interact(Transform transform)
     {
         Debug.Log(_hasInteracte);
         if (!_hasInteracte)
         {
             _hasInteracte = true;
-            _memeCard = FindObjectOfType<GenerateCards>().SendMemeCard();
+            _memeCard = FindObjectOfType<GenerateCards>().SendMemeCard(transform);
             return _memeCard;
         }
         else
