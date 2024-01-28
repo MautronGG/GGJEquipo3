@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    GameObject Interact();
+    GameObject Interact(Transform transform);
 }

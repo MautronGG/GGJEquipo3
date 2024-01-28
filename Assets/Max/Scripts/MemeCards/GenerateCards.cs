@@ -8,9 +8,9 @@ public class GenerateCards : MonoBehaviour
     [SerializeField] SpritesContainer _spritesContainer;
     [SerializeField] GameObject _memeCardPrefab;
 
-    public GameObject SendMemeCard()
+    public GameObject SendMemeCard(Transform transform)
     {
-        GameObject memeCard = Instantiate(_memeCardPrefab);
+        GameObject memeCard = Instantiate(_memeCardPrefab, transform);
         return memeCard;
     }
 }

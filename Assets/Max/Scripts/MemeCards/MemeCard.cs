@@ -16,6 +16,8 @@ public class MemeCard : MonoBehaviour
     private void OnEnable()
     {
         _cardStats.GenerateInformation();
+        SpriteAndName();
+        StartCoroutine(DeactivateAfter());
     }
 
     public void SendStatsAndSprite(Sprite sprite, int stat)
@@ -30,5 +32,16 @@ public class MemeCard : MonoBehaviour
         MemeCardScriptable memeCard = _cardStats.GetSpriteAndName();
         _image.sprite = memeCard.sprite;
         _nameTxt.text = memeCard.memeName;
+    }
+
+    IEnumerator DeactivateAfter()
+    {
+        float x = 3f;
+        while (x > 0)
+        {
+            x -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        gameObject.SetActive(false);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputExploration : MonoBehaviour
 {
     [SerializeField] PlayerInventory _inventory;
+    [SerializeField] Transform _canvas;
     PlayerInput _playerInput;
     InputAction _movementAction;
     Transform _transform;
@@ -63,6 +64,6 @@ public class PlayerInputExploration : MonoBehaviour
         if (!hit.transform.TryGetComponent(out InteractableObject interactable)){
             return;
         }
-        _inventory.AddToArray(_inventory.m_memeCardsArray, interactable.Interact());
+        _inventory.AddToArray(_inventory.m_memeCardsArray, interactable.Interact(_canvas));
     }
 }
